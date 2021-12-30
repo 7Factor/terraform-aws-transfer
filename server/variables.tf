@@ -11,10 +11,10 @@ variable "vpc_id" {
 
 variable "subnet_ids" {
   description = "The ids of the subnets for the Transfer server's vpc endpoint"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "security_group_ids" {
   description = "The ids of the security groups for the Transfer server's vpc endpoint"
-  type = list(string)
+  type        = list(string)
 }

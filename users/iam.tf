@@ -11,9 +11,9 @@ data "aws_iam_policy_document" "transfer_assume_role" {
 }
 
 data "aws_iam_policy_document" "s3_read_write" {
-  Statement = {
-    effect    = "Allow"
-    actions   = [
+  statement {
+    effect = "Allow"
+    actions = [
       "s3:PutObject",
       "s3:GetObject",
       "s3:DeleteObject",
@@ -30,9 +30,9 @@ data "aws_iam_policy_document" "s3_read_write" {
 }
 
 data "aws_iam_policy_document" "s3_read_only" {
-  Statement = {
-    effect    = "Allow"
-    actions   = [
+  statement {
+    effect = "Allow"
+    actions = [
       "s3:GetObject",
       "s3:GetObjectVersion",
       "s3:ListBucket",
@@ -55,7 +55,7 @@ resource "aws_iam_role_policy" "transfer_s3_read_write_policy" {
   count  = var.read_write_users ? 1 : 0
   name   = "${var.service_name}-transfer-s3-read-write-policy"
   policy = data.aws_iam_policy_document.s3_read_write.json
-  role   = aws_iam_role.s3_read_write_role.name
+  role   = aws_iam_role.s3_read_write_role[0].name
 }
 
 resource "aws_iam_role" "s3_read_only_role" {
@@ -68,5 +68,5 @@ resource "aws_iam_role_policy" "transfer_s3_read_only_policy" {
   count  = var.read_only_users ? 1 : 0
   name   = "${var.service_name}-transfer-s3-read-only-policy"
   policy = data.aws_iam_policy_document.s3_read_only.json
-  role   = aws_iam_role.s3_read_only_role.name
+  role   = aws_iam_role.s3_read_only_role[0].name
 }

@@ -14,7 +14,7 @@ variable "service_name" {
 
 variable "read_write_users" {
   description = "User details for read-write Transfer users. Home directory should start with the S3 bucket name"
-  type        = list(object({
+  type = list(object({
     user_name      = string
     ssh_public_key = string
     home_directory = string
@@ -24,7 +24,7 @@ variable "read_write_users" {
 
 variable "read_only_users" {
   description = "User details for read-only Transfer users. Home directory should start with the S3 bucket name"
-  type        = list(object({
+  type = list(object({
     user_name      = string
     ssh_public_key = string
     home_directory = string

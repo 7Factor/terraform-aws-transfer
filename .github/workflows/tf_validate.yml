@@ -1,0 +1,38 @@
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-server:
+    name: Validate terraform for server module
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: terraform validate server
+        uses: dflook/terraform-validate@v1
+        id: validate
+        with:
+          path: server
+
+      - name: Validate server failed
+        if: ${{ failure() && steps.validate.outputs.failure-reason == 'validate-failed' }}
+        run: echo "terraform validate failed"
+
+  validate-users:
+    name: Validate terraform for users module
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: terraform validate users
+        uses: dflook/terraform-validate@v1
+        id: validate
+        with:
+          path: users
+
+      - name: Validate users failed
+        if: ${{ failure() && steps.validate.outputs.failure-reason == 'validate-failed' }}
+        run: echo "terraform validate failed"
