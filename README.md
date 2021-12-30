@@ -14,7 +14,7 @@ appropriate variables. Then, plan your run and deploy.
 
 ### Setting up the server
 
-You like only want to do this once for all of your services. Since it will be backed by S3, you will have a lot of
+You likely only want to do this once for all of your services. Since it will be backed by S3, you will have a lot of
 freedom in how you control the data storage. See the [part about setting up](#setting-up-the-users) users for that.
 
 ```hcl
