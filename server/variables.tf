@@ -9,12 +9,6 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "aws_region" {
-  description = "The region for the Transfer server"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "subnet_ids" {
   description = "The ids of the subnets for the Transfer server's vpc endpoint"
   type = list(string)
