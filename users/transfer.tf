@@ -22,8 +22,8 @@ resource "aws_transfer_ssh_key" "transfer_server_read_write_user_ssh_key" {
 }
 
 resource "aws_transfer_ssh_key" "transfer_server_read_only_user_ssh_key" {
-  count     = length(var.read_write_users)
+  count     = length(var.read_only_users)
   server_id = var.transfer_server_id
-  user_name = element(var.read_write_users.*.user_name, count.index)
+  user_name = element(var.read_only_users.*.user_name, count.index)
   body      = element(var.read_only_users.*.ssh_public_key, count.index)
 }
