@@ -6,33 +6,43 @@ jobs:
   validate-server:
     name: Validate terraform for server module
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: terraform validate server
-        uses: dflook/terraform-validate@v1
-        id: validate
-        with:
-          path: server
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v1
 
-      - name: Validate server failed
-        if: ${{ failure() && steps.validate.outputs.failure-reason == 'validate-failed' }}
-        run: echo "terraform validate failed"
+      - name: terraform init
+        id: init
+        run: terraform init
+
+      - name: terraform validate
+        id: validate
+        run: terraform validate -no-color
 
   validate-users:
     name: Validate terraform for users module
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: users
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: terraform validate users
-        uses: dflook/terraform-validate@v1
-        id: validate
-        with:
-          path: users
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v1
 
-      - name: Validate users failed
-        if: ${{ failure() && steps.validate.outputs.failure-reason == 'validate-failed' }}
-        run: echo "terraform validate failed"
+      - name: terraform init
+        id: init
+        run: terraform init
+
+      - name: terraform validate
+        id: validate
+        run: terraform validate -no-color
